@@ -5,7 +5,6 @@ plugins {
 
 group = project.maven_group
 version = project.plugin_version
-archivesBaseName = project.archives_base_name
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
@@ -22,6 +21,11 @@ compileJava {
     options.compilerArgs << '-parameters'
 }
 
+configurations {
+    provided
+    implementation.extendsFrom(provided)
+}
+
 // Ensures latest Jingle commit
 configurations.configureEach {
     resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
@@ -32,12 +36,19 @@ dependencies {
     implementation 'com.github.DuncanRuns:Jingle:main-SNAPSHOT'
 }
 
-
 processResources {
     // Totally stolen from Fabric
     inputs.property "version", project.version
 
     filesMatching("jingle.plugin.json") {
         expand "version": project.version
+    }
+}
+
+jar {
+    duplicatesStrategy DuplicatesStrategy.EXCLUDE
+    from { configurations.provided.asFileTree.files.collect { zipTree(it) } } {
+        include '**/*.class'
+        exclude "**/module-info.*"
     }
 }
