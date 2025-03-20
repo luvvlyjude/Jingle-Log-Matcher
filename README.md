@@ -1,4 +1,4 @@
-# Jingle Log Matcher
+# Log Matcher Plugin
 
 Provides a system to constantly read the current instance's latest.log file and call custom events based on a matched 
 RegEx pattern. This plugin can be used by other Jingle plugins and Jingle Lua scripts. The log file is checked for 
