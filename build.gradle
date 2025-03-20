@@ -5,6 +5,7 @@ plugins {
 
 group = project.maven_group
 version = project.plugin_version
+archivesBaseName = project.archives_base_name
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
@@ -14,7 +15,7 @@ java {
 repositories {
     mavenCentral()
     maven { url 'https://jitpack.io' }
-    maven { url "https://www.jetbrains.com/intellij-repository/releases" }
+    maven { url 'https://www.jetbrains.com/intellij-repository/releases' }
 }
 
 compileJava {
@@ -47,8 +48,21 @@ processResources {
 
 jar {
     duplicatesStrategy DuplicatesStrategy.EXCLUDE
+
+    manifest {
+        attributes('Main-Class': 'me.luvvlyjude.logmatcher.LogMatcherPlugin',
+                'Implementation-Title': plugin_name,
+                'Implementation-Version': version)
+    }
+
     from { configurations.provided.asFileTree.files.collect { zipTree(it) } } {
         include '**/*.class'
-        exclude "**/module-info.*"
+        exclude '**/module-info.*'
     }
+}
+
+var jinglePluginsFolderPath = "${System.getProperty('user.home')}/.config/Jingle/plugins"
+tasks.register('copyJar', Copy) {
+    from jar
+    into jinglePluginsFolderPath
 }

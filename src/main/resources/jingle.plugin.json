@@ -1,6 +1,6 @@
 {
-  "name": "Jingle Log Matcher",
-  "id": "jingle-log-matcher",
+  "name": "Log Matcher",
+  "id": "jingle-log-matcher-plugin",
   "version": "${version}",
   "initializer": "me.luvvlyjude.logmatcher.LogMatcherPlugin::initialize"
 }
