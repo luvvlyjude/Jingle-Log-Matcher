@@ -14,8 +14,4 @@ public methods in manager:LogManager. That plugin then depends on Jingle-Log-Mat
 
 This plugin can be used by Jingle Lua scripts by calling the functions generated in the logmatcher Lua docs file.
 
-### Jingle Plugin GUIs (Unused)
-Jingle GUIs are made with the IntelliJ IDEA form designer, if you intend on changing GUI portions of the code, IntelliJ
-IDEA must be configured in a certain way to ensure the GUI form works properly:
-- `Settings` -> `Build, Execution, Deployment` -> `Build Tools` -> `Gradle` -> `Build and run using: IntelliJ Idea`
-- `Settings` -> `Editor` -> `GUI Designer` -> `Generate GUI into: Java source code`
+**Note:** This plugin has no GUI in the Jingle plugins menu.
