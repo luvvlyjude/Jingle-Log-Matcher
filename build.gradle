@@ -5,6 +5,7 @@ plugins {
 
 group = project.maven_group
 version = project.plugin_version
+//noinspection GroovyUnusedAssignment
 archivesBaseName = project.archives_base_name
 
 java {
