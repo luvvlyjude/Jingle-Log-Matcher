@@ -34,7 +34,8 @@ public class LogMatcherLuaLibrary extends LuaLibrary {
     }
 
     @LuaDocumentation(description = "Remove the pattern responsible for calling the specified match event.\n" +
-            "Returns the previous pattern responsible for the specified match event, or null if no pattern was removed.")
+            "Returns the previous pattern responsible for the specified match event, or null if no pattern was removed.",
+            returnTypes = "string|nil")
     public String removePattern(String matchEvent) {
         assert this.script != null;
         return LogManager.removePattern(this.script.getName(), matchEvent);
