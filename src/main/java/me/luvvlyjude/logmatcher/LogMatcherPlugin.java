@@ -13,12 +13,22 @@ import xyz.duncanruns.jingle.util.ExceptionUtil;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class LogMatcherPlugin {
-    public static final String PLUGIN_NAME = Optional.ofNullable(LogMatcherPlugin.class.getPackage().getImplementationTitle()).orElse("DEV-PLUGIN");
-    public static final String VERSION = Optional.ofNullable(LogMatcherPlugin.class.getPackage().getImplementationVersion()).orElse("DEV-VERSION");
+public final class LogMatcherPlugin {
+    public static final PluginManager.JinglePluginData PLUGIN_DATA;
+    public static final String NAME;
+    public static final String VERSION;
+
+    static {
+        try {
+            PLUGIN_DATA = PluginManager.JinglePluginData.fromString(Resources.toString(Resources.getResource(LogMatcherPlugin.class, "/jingle.plugin.json"), Charset.defaultCharset()));
+            NAME = PLUGIN_DATA.name;
+            VERSION = PLUGIN_DATA.version;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public static void main(String[] args) throws IOException {
         // This is only used to test the plugin in the dev environment
@@ -31,7 +41,7 @@ public class LogMatcherPlugin {
 
     public static void initialize() {
         // This gets run once when Jingle launches
-        log(Level.INFO, "Running " + PLUGIN_NAME + " Plugin v" + VERSION + "!");
+        log(Level.INFO, "Running " + NAME + " Plugin v" + VERSION + "!");
 
         LuaLibraries.registerLuaLibrary(LogMatcherLuaLibrary::new);
 
@@ -50,11 +60,10 @@ public class LogMatcherPlugin {
                 timeTracker.set(currentTime);
             }
         });
-
     }
 
     public static void log(Level level, String message) {
-        Jingle.log(level, "(LogMatcher) " + message);
+        Jingle.log(level, String.join(" ", NAME, message));
     }
 
     public static void logError(String failMessage, Throwable t) {
