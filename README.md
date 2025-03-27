@@ -9,8 +9,12 @@ plugin's public functions is written in the source code and is also generated in
 
 ### With Jingle
 This plugin can be used by other Jingle plugins by adding 
-`implementation com.github.luvvlyjude:Jingle-Log-Matcher:main-SNAPSHOT` to your build.gradle dependencies and using the
-public methods in manager:LogManager. That plugin then depends on Jingle-Log-Matcher being loaded by Jingle.
+`implementation com.github.luvvlyjude:Jingle-Log-Matcher:main-SNAPSHOT` to your build.gradle dependencies and including
+it that dependency in your plugins jar build. You should then run `LogMatcherPlugin::initialize` near the start of
+your plugin's initialization followed by using the public methods in `manager.LogManager` to add patterns and callbacks.
+If you want to depend on the plugin separately you can provide a Lua library in your plugin and make a script to link
+the functionality between the 2 plugins. You may consider using the [gradle shadow plugin](https://gradleup.com/shadow/)
+to package this plugin with yours.
 
 This plugin can be used by Jingle Lua scripts by calling the functions generated in the logmatcher Lua docs file.
 
