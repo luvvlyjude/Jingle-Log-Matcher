@@ -63,7 +63,7 @@ public final class LogMatcherPlugin {
     }
 
     public static void log(Level level, String message) {
-        Jingle.log(level, String.join(" ", NAME, message));
+        Jingle.log(level, "(" + NAME + ") " + message);
     }
 
     public static void logError(String failMessage, Throwable t) {
