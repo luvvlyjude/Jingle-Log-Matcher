@@ -50,12 +50,6 @@ processResources {
 jar {
     duplicatesStrategy DuplicatesStrategy.EXCLUDE
 
-    manifest {
-        attributes('Main-Class': 'me.luvvlyjude.logmatcher.LogMatcherPlugin',
-                'Implementation-Title': plugin_name,
-                'Implementation-Version': version)
-    }
-
     from { configurations.provided.asFileTree.files.collect { zipTree(it) } } {
         include '**/*.class'
         exclude '**/module-info.*'
